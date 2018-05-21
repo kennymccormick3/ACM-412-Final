@@ -35,7 +35,7 @@
 						<td>${tempProduct.productname}</td>
 						<td>${tempProduct.price}$</td>
 						<td>${tempProduct.quantity}</td>
-						<td><a class="btn btn-danger" href="${pageContext.request.contextPath }/dropFromCart?productID=${tempProduct.id}"onclick="if(!(confirm('Are you sure you want to drop this part?'))) return false;">Drop From Cart</a></td>
+						<td><a class="btn btn-danger" href="${pageContext.request.contextPath }/dropFromCart?productID=${tempProduct.id}"onclick="if(!(confirm('Are you sure you want to drop this product?'))) return false;">Drop From Cart</a></td>
 					</tr>
 					
 				</c:forEach>

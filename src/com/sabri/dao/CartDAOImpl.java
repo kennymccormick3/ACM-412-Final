@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.sabri.entity.Cart;
-import com.sabri.entity.Product;
 
 @Repository
 public class CartDAOImpl implements CartDAO {
