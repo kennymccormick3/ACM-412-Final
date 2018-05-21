@@ -21,7 +21,7 @@ public class ProductController {
 	private ProductService productService;
 	
 	
-	
+	//Index Page 
 	@GetMapping("/")
 	public String listProducts(Model theModel) {
 		
@@ -29,17 +29,17 @@ public class ProductController {
 		theModel.addAttribute("products", theProduct);
 		List<Cart> theCart = productService.getCart();
 		int cartSum = theCart.size();
+		
+		//Print how many products in the cart to index.JSP
 		theModel.addAttribute("product", cartSum);
 		return "index";
 	}
 	
+	//Add to Cart Process
 	@GetMapping("/addToCart")
 	public String addToCart(@RequestParam("productID") int theId, Model theModel) {
 		Product theProduct = productService.getProduct(theId);		
 		int productQuantity = theProduct.getQuantity();
-		
-		
-		
 		
 		//Check and Decrease Quantity
 		if (productQuantity > 0) {
@@ -71,6 +71,8 @@ public class ProductController {
 		return "redirect:/";
 	}
 	
+	
+	//Cart Page
 	@GetMapping("/showCart")
 	public String showCart(Model theModel) {
 		
@@ -81,10 +83,12 @@ public class ProductController {
 		
 		//How many product in your cart
 		int cartSum = theCart.size();
+		
+		//Print how many products in the cart to cart.JSP
 		theModel.addAttribute("product", cartSum);
 		int total = 0;
 		
-		//Get Total 
+		//Get Total Price
 		for(int i = 1; i <= theProduct.size(); i++) {
 			if (productService.exist(i)) {
 				Cart cart = productService.getOneCart(i);
@@ -96,10 +100,12 @@ public class ProductController {
 			}
 		}
 		
+		//Print Total Price to JSP
 		theModel.addAttribute("summary", total);
 		return "cart";
 	}
 	
+	//Drop From Cart Process
 	@GetMapping("/dropFromCart")
 	public String dropFromCart(@RequestParam("productID") int theId, Model theModel) {
 		
@@ -114,18 +120,15 @@ public class ProductController {
 			productService.dropFromCart(theId);
 		}
 		
-		
 		return "redirect:/showCart";
 		
 	}
 	
+	//Buy all the products and delete their quantities from database
 	@GetMapping("/buyAll")
 	public String buyAll() {
 		productService.deleteCart();
 		return "redirect:/showCart";
 	}
-	
-	
-	
 	
 }
